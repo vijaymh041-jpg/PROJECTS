@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Task Manager</title>
+  <link rel="stylesheet" href="task.css">
+</head>
+<body>
+  <div class="task-manager-container">
+    <h1>Enhanced Task Manager</h1>
+    <button id="add-task-btn">Add Task</button>
+    <ul id="task-list">
+      <!-- Tasks will be displayed here -->
+    </ul>
+  </div>
+
+  <!-- Modal for Adding/Editing Tasks -->
+  <div class="modal" id="task-modal">
+    <div class="modal-content">
+      <h2 id="modal-title">Add Task</h2>
+      <form id="task-form">
+        <div class="form-group">
+          <label for="task-input">Task Name:</label>
+          <input type="text" id="task-input" placeholder="Enter task name" required>
+        </div>
+        <div class="form-group">
+          <label for="task-time">Deadline:</label>
+          <input type="datetime-local" id="task-time" required>
+        </div>
+        <div class="form-group">
+          <label for="task-priority">Priority:</label>
+          <select id="task-priority" required>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" id="save-task-btn">Save</button>
+          <button type="button" id="cancel-task-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="task.js"></script>
+</body>
+</html>

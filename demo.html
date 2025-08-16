@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Manager</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      width: 100vw;
+    }
+    
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #f4f4f9;
+    }
+    
+    .sidebar {
+      position: relative;
+      width: 10vw;
+      background: #6200ea;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-around;
+      padding: 2rem;
+    }
+    
+    .card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      flex: 1 1 calc(30% - 1rem);
+      max-width: 30%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      margin-top: 1rem;
+    }
+    
+    .calendar-grid div {
+      padding: 10px;
+      background: #f9f9f9;
+      text-align: center;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+    
+    .calendar-grid div:hover {
+      background: #6200ea;
+      color: white;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 50%;
+      text-align: center;
+    }
+    
+    .modal-content ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .modal-content ul li {
+      margin: 5px 0;
+      padding: 10px;
+      background: #f4f4f9;
+      border-radius: 5px;
+    }
+    
+    .close-modal {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #ff5252;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>Logo</h2>
+  </aside>
+  <div class="main-content">
+    <header class="navbar">
+      <h1>Project Manager</h1>
+    </header>
+    <section class="dashboard">
+      <div class="card">
+        <div class="calendar-header">
+          <button onclick="prevMonth()">&#8249;</button>
+          <h2 id="calendar-month">Month</h2>
+          <button onclick="nextMonth()">&#8250;</button>
+        </div>
+        <div class="calendar-grid" id="calendar-grid">
+          <!-- Calendar days -->
+        </div>
+      </div>
+    </section>
+    <div class="modal" id="task-modal">
+      <div class="modal-content">
+        <h3>Tasks and Routines for <span id="selected-date"></span></h3>
+        <h4>Tasks:</h4>
+        <ul id="task-list-modal"></ul>
+        <h4>Routines:</h4>
+        <ul id="routine-list-modal"></ul>
+        <button class="close-modal" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Data for tasks and routines
+    const tasksByDate = {
+      "2024-12-01": ["Task 1", "Task 2"],
+      "2024-12-02": ["Task 3"]
+    };
+
+    const routinesByDate = {
+      "2024-12-01": ["Routine A", "Routine B"],
+      "2024-12-02": ["Routine C"]
+    };
+
+    const calendarGrid = document.getElementById("calendar-grid");
+    const calendarMonth = document.getElementById("calendar-month");
+    const taskModal = document.getElementById("task-modal");
+    const selectedDateElement = document.getElementById("selected-date");
+    const taskListModal = document.getElementById("task-list-modal");
+    const routineListModal = document.getElementById("routine-list-modal");
+
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+
+    function generateCalendar(month, year) {
+      calendarGrid.innerHTML = "";
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const firstDay = new Date(year, month, 1).getDay();
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+      calendarMonth.textContent = `${monthNames[month]} ${year}`;
+
+      for (let i = 0; i < firstDay; i++) {
+        calendarGrid.innerHTML += `<div></div>`;
+      }
+
+      for (let i = 1; i <= daysInMonth; i++) {
+        const date = new Date(year, month, i);
+        const dateString = date.toISOString().split("T")[0];
+        calendarGrid.innerHTML += `<div onclick="showTasks('${dateString}')">${i}</div>`;
+      }
+    }
+
+    function showTasks(date) {
+      selectedDateElement.textContent = date;
+      taskListModal.innerHTML = tasksByDate[date]
+        ? tasksByDate[date].map(task => `<li>${task}</li>`).join("")
+        : "<li>No tasks for this date.</li>";
+      routineListModal.innerHTML = routinesByDate[date]
+        ? routinesByDate[date].map(routine => `<li>${routine}</li>`).join("")
+        : "<li>No routines for this date.</li>";
+      taskModal.style.display = "flex";
+    }
+
+    function closeModal() {
+      taskModal.style.display = "none";
+    }
+
+    function prevMonth() {
+      currentMonth = (currentMonth - 1 + 12) % 12;
+      if (currentMonth === 11) currentYear--;
+      generateCalendar(currentMonth, currentYear);
+    }
+
+    function nextMonth() {
+      currentMonth = (currentMonth + 1) % 12;
+      if (currentMonth === 0) currentYear++;
+      generateCalendar(currentMonth, currentYear);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      generateCalendar(currentMonth, currentYear);
+    });
+  </script>
+</body>
+</html>

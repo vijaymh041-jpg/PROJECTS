@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Project Manager</title>
+  <style>
+    /* Reset Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f9;
+}
+
+a {
+  text-decoration: none;
+  color: #6200ea;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Login Page Styles */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f9;
+}
+
+.login-card {
+  background: #fff;
+  width: 400px;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-card h1 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.login-card p {
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.login-btn {
+  background: #6200ea;
+  color: #fff;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.login-btn:hover {
+  background: #3700b3;
+}
+
+.form-links {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+</style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <h1>Welcome Back!</h1>
+      <p>Sign in to manage your tasks, groups, and routines.</p>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="login-btn">Sign In</button>
+        <div class="form-links">
+          <a href="#">Forgot Password?</a>
+          <a href="register.html">Create an Account</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    document.getElementById("login-form").addEventListener("submit", (event) => {
+    event.preventDefault(); // Prevent form from refreshing the page
+  
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+  
+    // Basic validation
+    if (!email || !password) {
+      alert("Please fill out all fields.");
+      return;
+    }
+  
+    // Simulate login (Replace this with actual API call)
+    if (email === "lingarajgn45@gmail.com" && password === "password123") {
+      alert("Login successful!");
+      window.location.href = "index.html"; // Redirect to the dashboard
+    } else {
+      alert("Invalid email or password.");
+    }
+  });
+  </script>
+</body>
+</html>

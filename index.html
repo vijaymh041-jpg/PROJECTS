@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Manager</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      width: 100vw;
+    }
+    
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #f4f4f9;
+    }
+    
+    /* Sidebar Styles */
+    .sidebar {
+      position: relative;
+      width: 10vw;
+      background: #6200ea;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+    }
+    
+    .sidebar-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .sidebar-links {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .sidebar-links li {
+      margin: 1rem 0;
+    }
+    
+    .sidebar-links a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 1rem;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .search-bar input {
+      padding: 0.5rem;
+      width: 150%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    .profile-icons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .profile-pic {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    
+    .logout-btn {
+      background: #ff5252;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    
+    /* Card and Dashboard */
+    .welcome-section {
+      text-align: center;
+      padding: 2rem;
+      background: #fff;
+      margin: 1rem;
+      border-radius: 10px;
+    }
+    
+    /* General styles for the dashboard */
+.dashboard {
+  display: flex;
+  flex-wrap: wrap; /* Enables wrapping for smaller screens */
+  gap: 1rem;
+  justify-content: space-around; /* Evenly distributes cards horizontally */
+  padding: 2rem;
+  align-items: flex-start; /* Ensures proper alignment for uneven card heights */
+}
+
+/* Styles for individual cards */
+.card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex: 1 1 calc(30% - 1rem); /* Responsive width (3 cards per row) */
+  max-width: 30%; /* Ensure cards don't grow too large */
+  text-align: center;
+  display: flex;
+  flex-direction: column; /* Allows content stacking inside the card */
+  align-items: center;
+}
+
+/* Ensure cards look good on smaller screens */
+@media (max-width: 768px) {
+  .card {
+    flex: 1 1 calc(45% - 1rem); /* 2 cards per row on smaller screens */
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    flex: 1 1 calc(100% - 1rem); /* 1 card per row on very small screens */
+    max-width: 100%;
+  }
+}
+
+/* Button styles inside cards */
+.card button {
+  margin-top: auto; /* Pushes the button to the bottom */
+  padding: 0.7rem 1.5rem;
+  background: #6200ea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card button:hover {
+  background: #3700b3;
+}
+
+/* Calendar card specific styles */
+.card .calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.card .calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 columns for days of the week */
+  gap: 5px;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.card .calendar-grid div {
+  padding: 10px;
+  background: #f9f9f9;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.card .calendar-grid div:hover {
+  background: #6200ea;
+  color: white;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>logo</h2>
+    </div>
+    <ul class="sidebar-links">
+      <li><a href="task.html">my task</a></li>
+      <li><a href="routine.html">daily routines</a></li>
+    </ul>
+  </aside>
+
+  <div class="main-content">
+    <header class="navbar">
+      <div class="search-bar">
+        <input type="text" placeholder="Search...">
+      </div>
+      <div class="profile-icons">
+        <img src="profile-icon.png" alt="Profile" class="profile-pic">
+        <button class="logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <!-- Main Body -->
+    <main>
+      <section class="welcome-section">
+        <h1>Welcome, [User's Name]</h1>
+        <p>Manage your tasks and daily routines efficiently!</p>
+      </section>
+
+      <section class="dashboard">
+        <div class="card">
+          <h2>My Tasks</h2>
+          <a href="task.html"><button>Add Task</button></a>
+        </div>
+      
+        <div class="card">
+          <h2>Daily Routine</h2>
+          <a href="routine.html"><button>Add Routine</button></a>
+        </div>
+      
+        <div class="card">
+          <div class="calendar-header">
+            <button onclick="prevMonth()">&#8249;</button>
+            <h2 id="calendar-month">Month</h2>
+            <button onclick="nextMonth()">&#8250;</button>
+          </div>
+          <div class="calendar-grid" id="calendar-grid">
+            <!-- Calendar days will be dynamically loaded here -->
+          </div>
+        </div>
+      </section>
+    </main>
+      
+      
+        <!-- Modal for Tasks -->
+        <div class="modal" id="task-modal">
+          <div class="modal-content">
+            <h3>Tasks for <span id="selected-date"></span></h3>
+            <ul id="task-list-modal">
+              <!-- Tasks for the selected date will appear here -->
+            </ul>
+            <button class="close-modal" onclick="closeModal()">Close</button>
+          </div>
+        </div>
+
+  <script>
+    // Task and Routine Data
+
+    
+    // Calendar Logic
+    const calendarGrid = document.getElementById("calendar-grid");
+    const calendarMonth = document.getElementById("calendar-month");
+    const taskModal = document.getElementById("task-modal");
+    const selectedDateElement = document.getElementById("selected-date");
+    const taskListModal = document.getElementById("task-list-modal");
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+
+    // Generate Calendar
+    function generateCalendar(month, year) {
+      calendarGrid.innerHTML = "";
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const firstDay = new Date(year, month, 1).getDay();
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+      calendarMonth.textContent = `${monthNames[month]} ${year}`;
+
+      for (let i = 0; i < firstDay; i++) {
+        calendarGrid.innerHTML += `<div></div>`;
+      }
+
+      for (let i = 1; i <= daysInMonth; i++) {
+        const date = new Date(year, month, i);
+        const dateString = date.toISOString().split("T")[0];
+        calendarGrid.innerHTML += `<div onclick="showTasks('${dateString}')">${i}</div>`;
+      }
+    }
+
+    // Show Tasks in Modal
+    function showTasks(date) {
+      selectedDateElement.textContent = date;
+      taskListModal.innerHTML = "";
+      if (tasksByDate[date]) {
+        tasksByDate[date].forEach(task => {
+          const li = document.createElement("li");
+          li.textContent = task;
+          taskListModal.appendChild(li);
+        });
+      } else {
+        taskListModal.innerHTML = "<li>No tasks for this date.</li>";
+      }
+      taskModal.style.display = "flex";
+    }
+
+    // Close Modal
+    function closeModal() {
+      taskModal.style.display = "none";
+    }
+
+    // Navigation
+    function prevMonth() {
+      currentMonth = (currentMonth - 1 + 12) % 12;
+      if (currentMonth === 11) currentYear--;
+      generateCalendar(currentMonth, currentYear);
+    }
+
+    function nextMonth() {
+      currentMonth = (currentMonth + 1) % 12;
+      if (currentMonth === 0) currentYear++;
+      generateCalendar(currentMonth, currentYear);
+    }
+
+    // Initialize Calendar
+    document.addEventListener("DOMContentLoaded", () => {
+      generateCalendar(currentMonth, currentYear);
+    });
+  </script>
+</body>
+</html>
